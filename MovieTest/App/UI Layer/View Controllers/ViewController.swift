@@ -69,6 +69,15 @@ extension ViewController : UITableViewDataSource, UITableViewDelegate {
             if let image = image {
                 DispatchQueue.main.async() { [weak self] in
                 movieImg.image = image
+                movieImg.contentMode = .scaleAspectFill
+                movieImg.backgroundColor = UIColor.lightGray
+                movieImg.layer.cornerRadius = 10
+                movieImg.clipsToBounds = true
+                movieImg.layer.shadowColor = UIColor.black.cgColor
+                movieImg.layer.shadowOpacity = 0.5
+                movieImg.layer.shadowOffset = CGSize(width: 4, height: 4)
+                movieImg.layer.masksToBounds = false
+               movieImg.layer.shadowRadius = 5.0
                 
                 } }})
             
