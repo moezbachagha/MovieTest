@@ -28,6 +28,7 @@ class MovieDetailsViewController: UIViewController {
         MoviesViewModel.getMovieDetails(movieId : movieId , completion :{ [weak self] (Movie, error)  in
 
           if let error = error {
+              
             
         }
         
