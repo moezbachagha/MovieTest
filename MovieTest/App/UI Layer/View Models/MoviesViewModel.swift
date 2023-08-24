@@ -33,6 +33,20 @@ func getMovies(completion: @escaping( ([Movie]?, DataError?) -> () ) ) {
         }
     }
 }
+   
+    func getMovieDetails(movieId : Int? ,completion: @escaping( (Movie?, DataError?) -> () ) ) {
+        apiService.getMovieDetails(movieId : movieId , completion :{ [weak self] result in
+            
+            switch result {
+            case .success(let Movie):
+                completion(Movie, nil)
+            case .failure(let error):
+                self?.error = error
+                completion(nil, error)
+            }
+        })
+                                   }
+    
     
     func getImage(from url: URL, completion: @escaping( (UIImage?)?, DataError?) -> () )  {
         apiService.downloadImage (from : url,

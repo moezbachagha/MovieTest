@@ -9,16 +9,21 @@ import Foundation
 import Alamofire
 
 typealias MovieListAPIResponse = (Swift.Result<[Movie]?, DataError>) -> Void
+typealias MovieDetailsAPIResponse = (Swift.Result<Movie?, DataError>) -> Void
+
 var Movies : [Movie]  = []
 
 // API interface to retrieve city
 
 protocol MovieAPILogic {
     func getMovies(completion: @escaping (MovieListAPIResponse))
+    func getMovieDetails(movieId : Int? , completion: @escaping (MovieDetailsAPIResponse))
     func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) 
 }
 
 class MovieAPI: MovieAPILogic {
+  
+    
 
 
 
@@ -76,6 +81,32 @@ class MovieAPI: MovieAPILogic {
  
         
     }
+    func getMovieDetails(movieId : Int? ,completion: @escaping (MovieDetailsAPIResponse)) {
+        
+
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json; charset=utf-8",
+        ]
+       
+        AF.request(Common.Global.Details + String(movieId!) + "?api_key=c9856d0cb57c3f14bf75bdc6c063b8f3" , method: .get, parameters: nil, encoding : URLEncoding.httpBody, headers: headers)
+            .validate()
+            .responseDecodable(of: Movie.self) { response in
+                
+                switch response.result {
+                case .failure(let error):
+                    completion(.failure(.networkingError(error.localizedDescription)))
+                case .success(let Movie):
+                    completion(.success(Movie))
+                }
+            }
+        
+                        
+               
+            }
+    
+ 
+        
+    
     func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {

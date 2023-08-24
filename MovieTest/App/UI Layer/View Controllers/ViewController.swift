@@ -78,17 +78,13 @@ extension ViewController : UITableViewDataSource, UITableViewDelegate {
                                  
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-  /*
-        let cities = citiesArray[indexPath.row]
-        
-   
-
-        
+  
+        let movie = MoviesArray[indexPath.row]
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "CityDetailsViewController") as! CityDetailsViewController
-        controller.city  = cityModel
+        let controller = storyboard.instantiateViewController(withIdentifier: "MovieDetailsViewController") as! MovieDetailsViewController
+        controller.movieId  = movie.id
         self.navigationController?.pushViewController(controller, animated:true)
-*/
+
 
       }
 
